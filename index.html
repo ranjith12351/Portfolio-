@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranjith T — Junior Data Engineer &amp; Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F6F8;
+    --bg-panel:#FFFFFF;
+    --ink:#0F172A;
+    --ink-soft:#475569;
+    --ink-faint:#94A3B8;
+    --accent:#6366F1; /* Indigo 500 */
+    --accent-deep:#4338CA; /* Indigo 700 */
+    --accent-soft:#EEF2FF; /* Indigo 50 */
+    --secondary-accent:#0EA5E9; /* Sky blue for pops */
+    --line:#E2E8F0;
+    --radius:16px;
+    --radius-sm:10px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Modern Background Glows */
+  .bg-decoration {
+    position: fixed;
+    z-index: -1;
+    filter: blur(80px);
+    opacity: 0.4;
+    border-radius: 50%;
+  }
+  .bg-decoration.one {
+    width: 500px; height: 500px;
+    background: #6366F1;
+    top: -100px; right: -100px;
+  }
+  .bg-decoration.two {
+    width: 400px; height: 400px;
+    background: #0EA5E9;
+    bottom: -50px; left: -100px;
+  }
+
+  h1,h2,h3{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--ink);
+    margin:0 0 .4em 0;
+    letter-spacing:-0.03em;
+    font-weight:800;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  ::selection{background:var(--accent-soft);color:var(--accent-deep);}
+
+  .mono{font-family:'JetBrains Mono',monospace;}
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ===== Floating Glass Navbar ===== */
+  .nav-wrapper {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: calc(100% - 3rem);
+    max-width: 800px;
+  }
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
+    border-radius: 999px;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-brand {
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-brand::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    background: rgba(241, 245, 249, 0.8);
+    border-radius: 999px;
+    padding: 0.25rem;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  /* ===== Main Layout ===== */
+  main {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  section {
+    margin-bottom: 6rem;
+    scroll-margin-top: 6rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  section.in-view { opacity: 1; transform: translateY(0); }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    background: #10B981; /* Green */
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--secondary-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .typed-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .typed-line .cursor {
+    display: inline-block;
+    width: 3px; height: 1.1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero p.objective {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.2);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(15, 23, 42, 0.25);
+    text-decoration: none;
+  }
+  .btn-secondary {
+    background: var(--bg-panel);
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn-secondary:hover {
+    border-color: var(--ink-soft);
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  /* ===== Section Headers ===== */
+  .sec-head {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .sec-head h2 {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+  .sec-head .sec-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line) 0%, transparent 100%);
+  }
+
+  /* ===== Bento Grid Skills ===== */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .bento-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .bento-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.08);
+  }
+  .bento-card.span-2 { grid-column: span 2; }
+  
+  .bento-card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+
+  /* ===== Timeline Experience ===== */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--line);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-panel);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .content-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: 0 4px 6px -4px rgba(0,0,0,0.02);
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .card-head h3 { font-size: 1.2rem; margin: 0; }
+  .card-head .org {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    margin-top: 0.2rem;
+  }
+  .date-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    background: var(--bg);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+  .content-card ul { margin: 0; padding-left: 1.2rem; }
+  .content-card ul li {
+    margin-bottom: 0.5rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .content-card ul li::marker { color: var(--accent); }
+
+  /* ===== Education & Projects ===== */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .edu-cgpa {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: #ECFDF5;
+    color: #047857;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-left: 0.5rem;
+    border: 1px solid #A7F3D0;
+    font-weight: 600;
+  }
+
+  /* ===== Certs ===== */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  .cert-item:hover {
+    border-color: var(--accent);
+    color: var(--accent-deep);
+  }
+  .cert-item::before {
+    content: '✓';
+    color: #fff;
+    background: var(--accent);
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* ===== Contact ===== */
+  .contact-cta {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #1E293B;
+  }
+  .contact-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .contact-cta h2 {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .contact-cta p {
+    color: #94A3B8;
+    max-width: 50ch;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    position: relative;
+  }
+  .contact-btns {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+  .contact-btns a {
+    padding: 0.9rem 1.8rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  .btn-light {
+    background: #fff;
+    color: var(--ink);
+  }
+  .btn-light:hover { transform: translateY(-2px); text-decoration: none; }
+  .btn-outline-light {
+    border: 1px solid #334155;
+    color: #fff;
+  }
+  .btn-outline-light:hover { background: #1E293B; text-decoration: none; }
+
+  footer.site-foot {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .nav-wrapper { top: 1rem; }
+    .glass-nav { border-radius: 16px; flex-direction: column; gap: 0.5rem; padding: 0.75rem; }
+    .nav-links { width: 100%; justify-content: center; overflow-x: auto; padding: 0.5rem; }
+    .nav-links a { font-size: 0.75rem; padding: 0.4rem 0.7rem; }
+    
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-card.span-2 { grid-column: span 1; }
+    
+    .grid-2 { grid-template-columns: 1fr; }
+    
+    .cert-grid { grid-template-columns: 1fr; }
+    
+    .contact-cta { padding: 2.5rem 1.5rem; }
+    .contact-cta h2 { font-size: 1.8rem; }
+    .contact-btns { flex-direction: column; width: 100%; }
+    .contact-btns a { width: 100%; justify-content: center; }
+    
+    main { padding-top: 10rem; }
+  }
+
+  /* ===== Print Styles ===== */
+  @media print {
+    body { background: white; }
+    .bg-decoration, .nav-wrapper { display: none; }
+    .container { max-width: 100%; }
+    main { padding-top: 0; }
+    section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; margin-bottom: 2rem; }
+    .content-card, .bento-card, .cert-item { box-shadow: none; border: 1px solid #ccc; }
+    .contact-cta { background: white; color: black; border: 2px solid black; }
+    .contact-cta h2, .contact-cta p { color: black; }
+    .btn { box-shadow: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decoration one"></div>
+<div class="bg-decoration two"></div>
+
+<!-- Floating Glass Navigation -->
+<div class="nav-wrapper">
+  <nav class="glass-nav">
+    <div class="nav-brand">Ranjith T</div>
+    <div class="nav-links mono" id="topnav">
+      <a href="#profile">Profile</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</div>
+
+<main>
+  <div class="container">
+
+    <!-- HERO / PROFILE -->
+    <section id="profile" class="hero">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        Open to Entry-Level Data Engineering Roles
+      </div>
+      <h1>Ranjith <span class="gradient-text">T</span></h1>
+      <div class="typed-line mono"><span id="typed"></span><span class="cursor"></span></div>
+      <p class="objective">
+        Detail-oriented fresher building a foundation in data analytics and data engineering. 
+        Proficient in SQL, Python, ETL pipelines, database management, and data visualization. 
+        Looking for an entry-level role to turn raw data into actionable insights.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="https://github.com/ranjith12351" target="_blank" rel="noopener" class="btn btn-secondary">
+          View GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- SKILLS (Bento Grid) -->
+    <section id="skills">
+      <div class="sec-head">
+        <h2>Technical Skills</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="bento-grid">
+        <div class="bento-card span-2">
+          <h3>Data Engineering</h3>
+          <div class="tag-row">
+            <span class="tag">ETL</span><span class="tag">Data Modeling</span>
+            <span class="tag">Data Warehousing</span><span class="tag">Data Processing</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>Programming</h3>
+          <div class="tag-row">
+            <span class="tag">Python</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>Databases</h3>
+          <div class="tag-row">
+            <span class="tag">MySQL</span><span class="tag">DBMS</span>
+          </div>
+        </div>
+        <div class="bento-card span-2">
+          <h3>Data Analytics & Viz</h3>
+          <div class="tag-row">
+            <span class="tag">Data Analysis</span><span class="tag">Data Cleaning</span>
+            <span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">Statistical Analysis</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>Cloud & DevOps</h3>
+          <div class="tag-row">
+            <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>Tools & OS</h3>
+          <div class="tag-row">
+            <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Linux</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & PROJECTS (Timeline) -->
+    <section id="experience">
+      <div class="sec-head">
+        <h2>Experience & Projects</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <div class="content-card">
+            <div class="card-head">
+              <div>
+                <h3>Big Data and Business Management Intern</h3>
+                <span class="org">Bharatcares</span>
+              </div>
+              <span class="date-badge">Jun 2026 – Jul 2026</span>
+            </div>
+            <ul>
+              <li>Worked with large datasets to collect, clean, and analyze data for actionable business insights.</li>
+              <li>Assisted in data preprocessing, transformation, and validation to improve overall data quality.</li>
+              <li>Created reports and dashboards to support data-driven decision-making processes.</li>
+              <li>Performed data analysis using SQL, Excel, and Python to identify trends and patterns.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="content-card">
+            <div class="card-head">
+              <div>
+                <h3>Retail Sales Performance & Customer Behaviour Analytics</h3>
+                <span class="org">Data Analytics Project</span>
+              </div>
+              <span class="date-badge">Personal Project</span>
+            </div>
+            <ul>
+              <li>Collected, cleaned, and analyzed retail sales and customer data to identify trends and purchasing patterns.</li>
+              <li>Performed data preprocessing and transformation using SQL and Python for accuracy and consistency.</li>
+              <li>Developed interactive dashboards to monitor sales performance, customer behavior, and key business metrics.</li>
+              <li>Analyzed customer segments, product performance, and sales trends to generate actionable insights.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section id="education">
+      <div class="sec-head">
+        <h2>Education & Certifications</h2>
+        <div class="sec-line"></div>
+      </div>
+      
+      <div class="grid-2">
+        <!-- Education -->
+        <div class="content-card">
+          <div class="card-head">
+            <div>
+              <h3>B.E. Computer Science <span class="edu-cgpa">CGPA 7.2</span></h3>
+              <span class="org">PGP College of Engineering and Technology</span>
+            </div>
+            <span class="date-badge">Expected 2027</span>
+          </div>
+          <ul>
+            <li>Relevant coursework: Data Structures, OOP, Operating Systems, DBMS, Software Engineering.</li>
+          </ul>
+        </div>
+
+        <!-- Certifications -->
+        <div class="content-card" style="background: transparent; border: none; padding: 0; box-shadow: none;">
+          <ul class="cert-grid" style="list-style:none; margin:0; padding:0;">
+            <li class="cert-item">Google Cloud Cyber Security</li>
+            <li class="cert-item">Cisco Networking Basics</li>
+            <li class="cert-item">CompTIA Cloud Essentials</li>
+            <li class="cert-item">IBM Data Fundamentals</li>
+            <li class="cert-item">Google Cloud Data Analyst</li>
+            <li class="cert-item">AWS Cloud Essentials</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-cta">
+        <h2>Let's build data solutions together.</h2>
+        <p>Open to entry-level Data Engineer and Junior Python Developer roles. Reach out any time.</p>
+        <div class="contact-btns">
+          <a href="mailto:thiruppathiranjith8@gmail.com" class="btn btn-light">✉ Email Me</a>
+          <a href="tel:+918122989846" class="btn btn-outline-light">☎ Call +91 81229 89846</a>
+        </div>
+      </div>
+      <footer class="site-foot">
+        © 2026 Ranjith T — Karur, Tamil Nadu, 639001
+      </footer>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // Typing effect
+  const roles = ["$ whoami", "> Junior Data Engineer", "> Data Analyst", "> Aspiring Python Developer"];
+  const typedEl = document.getElementById('typed');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    typedEl.textContent = "> Junior Data Engineer · Data Analyst";
+  } else {
+    let ri = 0, ci = 0, deleting = false;
+    function tick(){
+      const full = roles[ri];
+      if(!deleting){
+        ci++;
+        typedEl.textContent = full.slice(0, ci);
+        if(ci === full.length){ deleting = true; setTimeout(tick, 1400); return; }
+      } else {
+        ci--;
+        typedEl.textContent = full.slice(0, ci);
+        if(ci === 0){ deleting = false; ri = (ri+1) % roles.length; }
+      }
+      setTimeout(tick, deleting ? 30 : 60);
+    }
+    tick();
+  }
+
+  // Scroll reveal
+  const sections = document.querySelectorAll('main section');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, {threshold:0.1});
+  sections.forEach(s=>io.observe(s));
+
+  // Active nav highlighting
+  const navLinks = document.querySelectorAll('#topnav a');
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(a=>a.classList.remove('active'));
+        const activeLink = document.querySelector(`#topnav a[href="#${entry.target.id}"]`);
+        if(activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, {rootMargin:"-40% 0px -50% 0px", threshold:0});
+  document.querySelectorAll('main section[id]').forEach(s=>navObserver.observe(s));
+</script>
+
+</body>
+</html>
